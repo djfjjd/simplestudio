@@ -19,6 +19,8 @@ npx tsc --noEmit
 npm run build
 ```
 
+The production build writes a complete static Cloudflare Pages site to `dist/client`, including an `index.html` and all application routes. Set the Pages build output directory to `dist/client`.
+
 ## Stack
 
 - Next.js 15 App Router, React, TypeScript, Tailwind CSS

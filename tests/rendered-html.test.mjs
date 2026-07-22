@@ -24,14 +24,18 @@ test("server-renders the SimpleStudio dashboard", async () => {
 });
 
 test("includes product routes, Cloudflare bindings, and removes starter preview", async () => {
-  const [app, hosting, pkg] = await Promise.all([
+  const [app, hosting, pkg, staticHome, staticSong] = await Promise.all([
     readFile(new URL("../components/studio-app.tsx", import.meta.url), "utf8"),
     readFile(new URL("../.openai/hosting.json", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../dist/client/index.html", import.meta.url), "utf8"),
+    readFile(new URL("../dist/client/songs/neon-afterglow/index.html", import.meta.url), "utf8"),
   ]);
   for (const route of ["Projects", "Brands", "Albums", "Songs", "Characters", "Storyboards", "Scenes", "Prompts", "Assets", "Settings"]) assert.match(app, new RegExp(route));
   assert.match(hosting, /"d1": "DB"/);
   assert.match(hosting, /"r2": "ASSETS"/);
   assert.match(pkg, /"next": "\^15\./);
+  assert.match(staticHome, /Production overview/);
+  assert.match(staticSong, /Song workspace/);
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
 });

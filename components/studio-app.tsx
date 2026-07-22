@@ -1,6 +1,5 @@
 "use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Activity, Album, Aperture, Archive, ArrowUpRight, AudioLines, BookOpen, Check, ChevronDown, Clapperboard, Download, FileText, FolderKanban, Gauge, Grid2X2, Image as ImageIcon, LayoutDashboard, List, Menu, Moon, MoreHorizontal, Palette, Plus, Save, Search, Settings, Sparkles, Sun, Users, WandSparkles, X } from "lucide-react";
 import { characters, projects, scenes, songs, storySections } from "@/lib/data";
@@ -12,6 +11,11 @@ const nav=[
 ];
 const titles:Record<string,[string,string]>= {dashboard:["Production overview","Everything moving through your studio today."],projects:["Projects","Music video productions across every brand."],brands:["Brands","Creative identities, worlds, and visual systems."],albums:["Albums","Release collections and their production state."],songs:["Songs","The source material behind every music video."],characters:["Characters","Reusable identities for consistent generation."],storyboards:["Storyboards","Shape each song into a visual narrative."],scenes:["Scene list","Direct every moment, from lens to lighting."],prompts:["Prompt generator","Build production-ready structured video prompts."],assets:["Asset library","Every image, clip, track, lyric, and prompt."],settings:["Settings","Studio preferences and service connections."]};
 const colors=[["#54302d","#151b2d"],["#463d5b","#17141c"],["#274850","#111a1d"],["#59472d","#17130e"],["#3c283e","#171219"],["#313e54","#101318"]];
+
+// Plain anchors keep every route reliable on static Cloudflare Pages hosting.
+function Link({href,className,children,onClick}:{href:string;className?:string;children:React.ReactNode;onClick?:()=>void}) {
+ return <a href={href} className={className} onClick={onClick}>{children}</a>;
+}
 
 export default function StudioApp({section="dashboard",songId}:{section?:string;songId?:string}){
  const [mobile,setMobile]=useState(false),[command,setCommand]=useState(false),[toast,setToast]=useState("");
