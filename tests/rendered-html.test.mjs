@@ -33,7 +33,7 @@ test("includes product routes, Cloudflare bindings, and removes starter preview"
   ]);
   for (const route of ["Projects", "Brands", "Albums", "Songs", "Characters", "Storyboards", "Scenes", "Prompts", "Assets", "Settings"]) assert.match(app, new RegExp(route));
   assert.match(hosting, /"d1": "DB"/);
-  assert.match(hosting, /"r2": "ASSETS"/);
+  assert.match(hosting, /"r2": "MEDIA"/);
   assert.match(pkg, /"next": "\^15\./);
   assert.match(staticHome, /Production overview/);
   assert.match(staticSong, /Song workspace/);

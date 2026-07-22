@@ -23,4 +23,6 @@ for (const route of routes) {
 
 const fallback = await readFile("dist/client/index.html", "utf8");
 await writeFile("dist/client/404.html", fallback);
+// The Vite plugin leaves a Worker deploy redirect that conflicts with Pages CLI.
+await rm(".wrangler/deploy/config.json", { force: true });
 console.log(`Prerendered ${routes.length} SimpleStudio routes.`);
